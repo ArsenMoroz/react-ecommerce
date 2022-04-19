@@ -1,9 +1,9 @@
 .category-container {
-    border-radius: 1%;
+    border-radius: 2%;
     outline: auto;
     outline-style: round;
     min-width: 30%;
-    height: 240px;
+    height: 320px;
     flex: 1 1 auto;
     display: flex;
     align-items: center;
@@ -46,6 +46,7 @@
   
     .category-body-container {
       height: 90px;
+      border-radius: 5%;
       padding: 0 25px;
       display: flex;
       flex-direction: column;
