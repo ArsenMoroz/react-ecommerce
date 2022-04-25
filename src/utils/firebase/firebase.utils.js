@@ -1,11 +1,13 @@
 import { initializeApp } from 'firebase/app';
 import {
   getAuth,
-  signInWithRedirect,
+  //signInWithRedirect,
   signInWithPopup,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
 } from 'firebase/auth';
 
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
@@ -30,8 +32,9 @@ const firebaseConfig = {
   export const auth = getAuth();
   export const signInWithGooglePopup = () =>
     signInWithPopup(auth, googleProvider);
-  export const signInWithGoogleRedirect = () =>
-    signInWithRedirect(auth, googleProvider);
+
+  //export const signInWithGoogleRedirect = () =>
+    //signInWithRedirect(auth, googleProvider);
   
   export const db = getFirestore();
   
@@ -57,7 +60,7 @@ const firebaseConfig = {
           ...additionalInformation,
         });
       } catch (error) {
-        console.log('error creating the user', error.message);
+        console.log('error creating the user',  error.message);
       }
     }
   
@@ -82,6 +85,29 @@ const firebaseConfig = {
     // return userDocRef
 
 };
+
+export const signOutUser = async () => await signOut(auth);
+
+// auth keeps track of what user are signed in right now
+
+export const onAuthStateChangedListener = (callback) => {
+  onAuthStateChanged(auth, callback);
+}
+
+// onAuthStateChanged will call its callback whenever the authentication state of our 
+// auth singleton changes. Ex: when the user signs in or signs out, the user is authenticated
+// in or out and auth state changes. 
+// onAuthStateChanged gives us bak an unsubscribe function
+
+/*
+{
+  Observer stream is accessed by a listener with those 3 methods:
+  next: callback,
+  error: errorCallback,
+  complete: completeCallback
+}
+*/
+
 
 
 
