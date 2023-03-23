@@ -10,7 +10,9 @@ import { CartContext } from "../../contexts/cart.context";
 
 import { signOutUser } from "../../utils/firebase/firebase.utils"
 
-import "./navigation.styles.scss"
+import { NavigationContainer, NavLink, NavLinks, LogoContainer } from "./navigation.styles";
+
+import "./navigation.styles.jsx"
 
 const Navigation = () =>{ 
     const { currentUser } = useContext(UserContext);
@@ -18,31 +20,29 @@ const Navigation = () =>{
 
     return(
         <Fragment>
-            <div className="navigation">
-                <Link className="logo-container" to='/'>
-                    <div>
+            <NavigationContainer>
+                <LogoContainer to='/'>
                         <img style={{width: "50px", height: "50px" }} src={logo} alt="crownLogo" />
-                    </div>
-                </Link>
-                <div className="nav-links-container">
+                </LogoContainer>
+                <NavLinks>
                     <Link className="nav-link" to='/shop'>
                         Shop
                     </Link>
                     {
                         currentUser ? (
-                            <span className="nav-link" onClick={signOutUser}>Sign Out</span>
+                            <NavLink  as='span' onClick={signOutUser}>Sign Out</NavLink>
                            ) : (
-                                <Link className="nav-link" to="/auth">
+                                <NavLink to="/auth">
                                     Sign In
-                                </Link>
+                                </NavLink>
                             )
                         
                     }
                     <CartIcon/>
-                </div>
+                </NavLinks>
                 { isCartOpen && <CartDropdown/>}
                 {/* { Evaluates the statement and if both its sides true, it returns what was passed last === Cart Dropdown } */}
-            </div>
+            </NavigationContainer>
             <Outlet/> 
         </Fragment>
     );
